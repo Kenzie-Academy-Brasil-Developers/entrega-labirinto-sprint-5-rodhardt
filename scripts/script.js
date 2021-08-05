@@ -25,6 +25,7 @@ const startBtn = document.getElementById("startBtn")
 const restartBtn = document.getElementById("restartBtn")
 const winningMessage = document.getElementById("winningMessage")
 const moveNumber = document.getElementById("moveNumber")
+const chronometerDisplay = document.getElementById("chronometerDisplay")
 
 let heroPosition = []
 
@@ -35,6 +36,11 @@ let finishPosition = []
 
 let gameWon = false
 let moveCount = 0
+
+let seconds = 0
+let minutes = 0
+
+let chronometerCall
 
 /* DECLARAÇÃO DE VARIÁVEIS */
 
@@ -47,6 +53,10 @@ startBtn.addEventListener("click", function() {
     mapGenerator(mapDefault)
     moveCount = 0
     moveCounter()
+
+    clearInterval(chronometerCall)
+    chronometerDisplay.innerText = `00:00`
+    chronometerCall = setInterval(chronometer, 1000)
 })
 
 restartBtn.addEventListener("click", function() {
@@ -55,6 +65,8 @@ restartBtn.addEventListener("click", function() {
     gameWon = false
     moveCount = 0
     moveCounter()
+    chronometerDisplay.innerText = `00:00`
+    chronometerCall = setInterval(chronometer, 1000)
 })
 
 
@@ -164,7 +176,7 @@ let winningEvent = () => {
 
         gameWon = true
         winningMessage.classList.remove("hidden")
-
+        clearInterval(chronometerCall)
 
     }
 
@@ -177,3 +189,32 @@ let moveCounter = () => {
 
 }
 
+
+let chronometer = () => {
+
+    if (chronometerDisplay.innerText === `00:00`) {
+        seconds = 0
+        minutes = 0
+    }
+
+    seconds++
+
+    if (seconds < 10) {
+        seconds = `0` + Number(seconds)
+    }
+
+    if (seconds > 59) {
+        seconds = `00`
+        minutes++
+    }
+
+    if (minutes < 10) {
+        minutes = `0` + Number(minutes)
+    }
+
+    if (minutes > 59) {
+        minutes = `00`
+    }
+
+    chronometerDisplay.innerText = `${minutes}:${seconds}`
+}
