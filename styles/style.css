@@ -1,27 +1,52 @@
-
-
 :root {
 
 }
 
 html {
-
+    background-image: url(http://greenarea.me/wp-content/uploads/2017/04/4320-1080x675.jpg);
+    background-size: contain;
+    background-repeat: repeat;
+    background-position-x: center;
 }
 
 .hidden {
     display: none;
 }
 
-body {
+button {
+    width: 120px;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    border: 1px solid green;
+    border-radius: 9px;
+    background-color: rgb(2, 32, 2);
+    color: white;
+    font-weight: bold;
+}
 
+button {
+    cursor: pointer;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(255, 255, 255, 0.5);
 }
 
 header {
-    
+    height: 100px;
+    border: 1px solid transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(6px);
 }
 
     header h1 {
-
+        color: rgb(3, 49, 3);
+        font-size: 2.4rem;
+        font-weight: bold;
     }
 
 main {
@@ -31,10 +56,10 @@ main {
 .main-game {
     width: 80vw;
     margin: auto;
-    border: 2px solid;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 50px;
 }
 
     .main-game h2 {
@@ -42,14 +67,18 @@ main {
     }
 
     .main-game button {
-
+        width: 150px;
     }
 
     .main-game .map {
         position: relative;
-        width: 75vw;
+        width: 70vw;
         height: 50vw;
-        margin: 20px;
+        max-width: 770px;
+        max-height: 550px;
+        box-sizing: border-box;
+        margin: 20px auto;
+
     }
 
     .main-game .row {
@@ -58,8 +87,10 @@ main {
     }
 
     .main-game .square {
-        width: calc(75vw /21);
-        height: calc(50vw/14);
+        width: calc(70vw/21);
+        height: calc(50vw/15);
+        max-width: calc(770px/21);
+        max-height: calc(550px/15);
         box-sizing: border-box;
     }
 
@@ -115,14 +146,22 @@ main {
 
     .message-container {
         position: absolute;
-        top: 20vh;
+        top: 30vh;
         left: 50%;
         transform: translateX(-50%);
         background-color: rgba(4, 114, 4, 0.7);
+        width: 260px;
+        height: 120px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
     }
 
     .message p {
-
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: rgb(3, 49, 3);
     }
 
     .message #restartBtn {
