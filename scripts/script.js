@@ -24,6 +24,7 @@ const map = document.getElementById("map")
 const startBtn = document.getElementById("startBtn")
 const restartBtn = document.getElementById("restartBtn")
 const winningMessage = document.getElementById("winningMessage")
+const moveNumber = document.getElementById("moveNumber")
 
 let heroPosition = []
 
@@ -33,7 +34,7 @@ hero.setAttribute("id", "hero")
 let finishPosition = []
 
 let gameWon = false
-
+let moveCount = 0
 
 /* DECLARAÇÃO DE VARIÁVEIS */
 
@@ -44,12 +45,16 @@ let gameWon = false
 
 startBtn.addEventListener("click", function() {
     mapGenerator(mapDefault)
+    moveCount = 0
+    moveCounter()
 })
 
 restartBtn.addEventListener("click", function() {
     winningMessage.classList.add("hidden")
     mapGenerator(mapDefault)
     gameWon = false
+    moveCount = 0
+    moveCounter()
 })
 
 
@@ -147,6 +152,8 @@ let changeSquare = (newPositionY, newPositionX) => {
     let destinySquare = document.querySelector(`.row:nth-child(${newPositionY + 1}) .square:nth-child(${newPositionX + 1})`)
     destinySquare.append(hero)
     heroPosition = [newPositionY, newPositionX]
+    moveCount++
+    moveCounter()
 }
 
 
@@ -164,4 +171,9 @@ let winningEvent = () => {
 }
 
 
+let moveCounter = () => {
+
+    moveNumber.innerText = moveCount
+
+}
 
