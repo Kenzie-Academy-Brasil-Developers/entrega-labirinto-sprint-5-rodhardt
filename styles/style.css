@@ -1,0 +1,138 @@
+
+
+:root {
+
+}
+
+html {
+
+}
+
+.hidden {
+    display: none;
+}
+
+body {
+
+}
+
+header {
+    
+}
+
+    header h1 {
+
+    }
+
+main {
+
+}
+
+.main-game {
+    width: 80vw;
+    margin: auto;
+    border: 2px solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+    .main-game h2 {
+        
+    }
+
+    .main-game button {
+
+    }
+
+    .main-game .map {
+        position: relative;
+        width: 75vw;
+        height: 50vw;
+        margin: 20px;
+    }
+
+    .main-game .row {
+        display: flex;
+        box-sizing: border-box;
+    }
+
+    .main-game .square {
+        width: calc(75vw /21);
+        height: calc(50vw/14);
+        box-sizing: border-box;
+    }
+
+    .main-game .wall {
+        background-color: blue;
+        
+    }
+
+    .main-game .floor {
+        background-color: grey;
+    }
+
+    .main-game #hero {
+        background-color: red;
+        width: 100%;
+        height: 100%;
+        /* background-image: url(https://w7.pngwing.com/pngs/333/622/png-transparent-t-shirt-playstation-4-bloodborne-the-old-hunters-video-game-know-your-meme-bloodborne-game-mammal-cartoon.png); */
+        z-index: 1;
+        background-size: contain;
+    }
+
+    .main-game .finish {
+        background-color: yellow;
+    }
+
+
+.info {
+    width: 80vw;
+    margin: auto;
+    text-align: center;
+    margin-top: 30px;
+}
+
+    .info h3 {
+
+    }
+
+    .info p {
+
+    }
+
+.message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(255, 255, 255, 0.8);
+    text-align: center;
+    vertical-align: center;
+}
+
+    .message-container {
+        position: absolute;
+        top: 20vh;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: rgba(4, 114, 4, 0.7);
+    }
+
+    .message p {
+
+    }
+
+    .message #restartBtn {
+
+    }
+
+footer {
+
+}
+
+
+
+

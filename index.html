@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/reset.css">
+    <link rel="stylesheet" href="./styles/normalize.css">
+    <link rel="stylesheet" href="./styles/style.css">
+    <title>Labirinto</title>
+</head>
+<body>
+    
+    <header><h1>Labirinto</h1></header>
+
+    <main>
+
+        <section class="main-game">
+
+            <h2>Ajude o Herói a escapar!</h2>
+            <button id="startBtn">Start/Reset</button>
+            <div class="map" id="map"></div>
+            
+        </section>
+
+        <section class="info">
+
+            <h3>Nível</h3>
+            <p>1</p>
+            <h3>Movimentos</h3>
+            <p>0</p>
+            <h3>Tempo</h3>
+            <p>0:00</p>
+        </section>
+
+    </main>
+
+    <div class="message hidden" id="winningMessage">
+        
+        <div class="message-container">
+            <p>Parabéns, você chegou ao final!</p>
+            <button id="restartBtn">Recomeçar</button>
+        </div>
+        
+    </div>
+
+    <footer></footer>
+
+    <script src="./scripts/script.js"></script>
+</body>
+</html>
