@@ -122,14 +122,18 @@ main {
     margin: auto;
     text-align: center;
     margin-top: 30px;
+    font-weight: bold;
+    color: rgb(2, 32, 2);
+    text-shadow: 1px 1px rgb(3, 85, 3);
 }
 
     .info h3 {
-
+        font-size: 1.6rem;
     }
 
     .info p {
-
+        font-size: 1.8rem;
+        margin-top: 10px;
     }
 
 .message {
