@@ -53,6 +53,10 @@ let currentLevel = 1
 let shakeMode = false
 let shakeCall
 
+let invisibleMode = false
+let invisibleCall
+
+
 /* DECLARAÇÃO DE VARIÁVEIS */
 
 
@@ -81,6 +85,9 @@ startBtn.addEventListener("click", function() {
     }
     addShake()
 
+    clearInterval(invisibleCall)
+    invisibleCall = setInterval(invisibleChange, 2000)
+
 })
 
 restartBtn.addEventListener("click", function() {
@@ -101,8 +108,13 @@ restartBtn.addEventListener("click", function() {
 
     if (currentLevel > 2) {
         shakeMode = true
+        invisibleMode = true
     }
     addShake()
+
+    clearInterval(invisibleCall)
+    invisibleCall = setInterval(invisibleChange, 2000)
+    
 })
 
 
@@ -309,3 +321,12 @@ let removeShake = () => {
     mainGame.classList.remove("shake")
 
 }
+
+let invisibleChange = () => {
+
+    if (invisibleMode) {
+        hero.classList.toggle("hidden")
+    }
+
+}
+
