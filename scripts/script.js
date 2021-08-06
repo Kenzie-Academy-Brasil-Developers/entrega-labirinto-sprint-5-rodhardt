@@ -27,6 +27,8 @@ const winningMessage = document.getElementById("winningMessage")
 const moveNumber = document.getElementById("moveNumber")
 const chronometerDisplay = document.getElementById("chronometerDisplay")
 const levelDisplay = document.getElementById("levelDisplay")
+const mainGame = document.querySelector(".main-game")
+const main = document.querySelector("main")
 
 let heroPosition = []
 
@@ -77,7 +79,7 @@ startBtn.addEventListener("click", function() {
     if (currentLevel > 2) {
         shakeMode = true
     }
-    addRotation()
+    addShake()
 
 })
 
@@ -100,7 +102,7 @@ restartBtn.addEventListener("click", function() {
     if (currentLevel > 2) {
         shakeMode = true
     }
-    addRotation()
+    addShake()
 })
 
 
@@ -296,7 +298,7 @@ let nextLevel = () => {
 let addShake = () => {
 
     if (shakeMode) {
-        map.classList.add("shake")
+        mainGame.classList.add("shake")
     }
 
 
@@ -304,6 +306,6 @@ let addShake = () => {
 
 let removeShake = () => {
 
-    map.classList.remove("shake")
+    mainGame.classList.remove("shake")
 
 }
