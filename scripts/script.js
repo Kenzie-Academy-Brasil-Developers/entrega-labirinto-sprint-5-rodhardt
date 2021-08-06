@@ -26,6 +26,7 @@ const restartBtn = document.getElementById("restartBtn")
 const winningMessage = document.getElementById("winningMessage")
 const moveNumber = document.getElementById("moveNumber")
 const chronometerDisplay = document.getElementById("chronometerDisplay")
+const levelDisplay = document.getElementById("levelDisplay")
 
 let heroPosition = []
 
@@ -42,6 +43,10 @@ let minutes = 0
 let chronometerCall
 
 let rotateMode = false
+let degrees = 0
+let rotationCall
+
+let currentLevel = 1
 
 /* DECLARAÇÃO DE VARIÁVEIS */
 
@@ -58,6 +63,14 @@ startBtn.addEventListener("click", function() {
     clearInterval(chronometerCall)
     chronometerDisplay.innerText = `00:00`
     chronometerCall = setInterval(chronometer, 1000)
+
+    clearInterval(rotationCall)
+    removeRotation()
+    if (currentLevel > 1) {
+        rotateMode = true
+    }
+    rotationCall = setInterval(addRotation, 2200)
+
 })
 
 restartBtn.addEventListener("click", function() {
@@ -68,6 +81,13 @@ restartBtn.addEventListener("click", function() {
     moveCounter()
     chronometerDisplay.innerText = `00:00`
     chronometerCall = setInterval(chronometer, 1000)
+
+    clearInterval(rotationCall)
+    removeRotation()
+    if (currentLevel > 1) {
+        rotateMode = true
+    }
+    rotationCall = setInterval(addRotation, 2200)
 })
 
 
@@ -179,6 +199,9 @@ let winningEvent = () => {
         winningMessage.classList.remove("hidden")
         clearInterval(chronometerCall)
 
+        clearInterval(rotationCall)
+    
+        nextLevel()
     }
 
 }
@@ -224,7 +247,34 @@ let chronometer = () => {
 
 let addRotation = () => {
 
-    map.classList.add("rotate")
+    if (rotateMode) {
+        map.classList.add("rotate")
+        let rotatingObject = document.querySelector(".rotate")
+        
+        degrees -= 90
+        rotatingObject.style.transform = `rotate(${degrees}deg)`
+        
+    }
+    
+
+}
+
+let removeRotation = () => {
+
+    degrees = 0
+
+    if (rotateMode) {
+        let rotatingObject = document.querySelector(".rotate") 
+        rotatingObject.style.transform = `rotate(${degrees}deg)`
+        map.classList.remove("rotate")
+    }
+    
+}
+
+let nextLevel = () => {
+
+    currentLevel++
+    levelDisplay.innerText = currentLevel
 
 }
 

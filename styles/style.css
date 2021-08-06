@@ -180,8 +180,8 @@ footer {
 }
 
 .rotate {
-    transition-duration: 3s;
-    transform: rotate(-90deg);
+    transition-duration: 2s;
+    transform: rotate(0deg);
 }
 
 
