@@ -9,9 +9,6 @@ html {
     background-position-x: center;
 }
 
-.hidden {
-    display: none;
-}
 
 button {
     width: 120px;
@@ -24,7 +21,7 @@ button {
     font-weight: bold;
 }
 
-button {
+button:hover {
     cursor: pointer;
 }
 
@@ -78,7 +75,6 @@ main {
         max-height: 550px;
         box-sizing: border-box;
         margin: 20px auto;
-
     }
 
     .main-game .row {
@@ -172,6 +168,17 @@ footer {
 
 }
 
+
+
+
+.hidden {
+    display: none;
+}
+
+.rotate {
+    transition-duration: 3s;
+    transform: rotate(-90deg);
+}
 
 
 

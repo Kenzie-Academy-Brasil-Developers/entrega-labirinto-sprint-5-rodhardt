@@ -34,6 +34,7 @@ let finishPosition = []
 
 let gameWon = false
 
+let rotateMode = false
 
 /* DECLARAÇÃO DE VARIÁVEIS */
 
@@ -164,4 +165,9 @@ let winningEvent = () => {
 }
 
 
+let addRotation = () => {
+
+    map.classList.add("rotate")
+
+}
 
