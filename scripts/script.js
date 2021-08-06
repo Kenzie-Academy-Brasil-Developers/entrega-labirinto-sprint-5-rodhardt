@@ -48,6 +48,9 @@ let rotationCall
 
 let currentLevel = 1
 
+let shakeMode = false
+let shakeCall
+
 /* DECLARAÇÃO DE VARIÁVEIS */
 
 
@@ -71,6 +74,11 @@ startBtn.addEventListener("click", function() {
     }
     rotationCall = setInterval(addRotation, 2200)
 
+    if (currentLevel > 2) {
+        shakeMode = true
+    }
+    addRotation()
+
 })
 
 restartBtn.addEventListener("click", function() {
@@ -88,6 +96,11 @@ restartBtn.addEventListener("click", function() {
         rotateMode = true
     }
     rotationCall = setInterval(addRotation, 2200)
+
+    if (currentLevel > 2) {
+        shakeMode = true
+    }
+    addRotation()
 })
 
 
@@ -202,6 +215,7 @@ let winningEvent = () => {
         clearInterval(rotationCall)
     
         nextLevel()
+        removeShake()
     }
 
 }
@@ -279,4 +293,17 @@ let nextLevel = () => {
 }
 
 
+let addShake = () => {
 
+    if (shakeMode) {
+        map.classList.add("shake")
+    }
+
+
+}
+
+let removeShake = () => {
+
+    map.classList.remove("shake")
+
+}
