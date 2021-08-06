@@ -177,6 +177,34 @@ main {
 
     }
 
+
+    .random-message {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        font-size: 0.6rem;
+        background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0qFHJYPZA64as9zpDIEAhkD54DW7jbySyuQXK1t9mVMogJNDjCwFI5D0nr7-eQPh7pFY&usqp=CAU);
+        background-size: contain;
+        padding: 30px;
+        text-align: center;
+    }
+
+    #firstMessage {
+        top: 15%;
+        left: 15%;
+    }
+
+    #secondMessage {
+        top:  20%;
+        left: 65%;
+    }
+
+    #thirdMessage {
+        top: 55%;
+        left: 45%;
+    }    
+
+
 footer {
 
 }

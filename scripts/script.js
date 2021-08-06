@@ -29,6 +29,9 @@ const chronometerDisplay = document.getElementById("chronometerDisplay")
 const levelDisplay = document.getElementById("levelDisplay")
 const mainGame = document.querySelector(".main-game")
 const main = document.querySelector("main")
+const firstMessage = document.getElementById("firstMessage")
+const secondMessage = document.getElementById("secondMessage") 
+const thirdMessage = document.getElementById("thirdMessage")
 
 let heroPosition = []
 
@@ -56,6 +59,8 @@ let shakeCall
 let invisibleMode = false
 let invisibleCall
 
+let messagesAppear = false
+let messagesCall
 
 /* DECLARAÇÃO DE VARIÁVEIS */
 
@@ -82,12 +87,16 @@ startBtn.addEventListener("click", function() {
 
     if (currentLevel > 2) {
         shakeMode = true
+        invisibleMode = true
+        messagesAppear = true
     }
     addShake()
 
     clearInterval(invisibleCall)
     invisibleCall = setInterval(invisibleChange, 2000)
 
+    clearInterval(messagesCall)
+    messagesCall = setInterval(randomMessages, 2000)
 })
 
 restartBtn.addEventListener("click", function() {
@@ -109,11 +118,15 @@ restartBtn.addEventListener("click", function() {
     if (currentLevel > 2) {
         shakeMode = true
         invisibleMode = true
+        messagesAppear = true
     }
     addShake()
 
     clearInterval(invisibleCall)
     invisibleCall = setInterval(invisibleChange, 2000)
+
+    clearInterval(messagesCall)
+    messagesCall = setInterval(randomMessages, 2000)
     
 })
 
@@ -230,6 +243,8 @@ let winningEvent = () => {
     
         nextLevel()
         removeShake()
+        messagesAppear = false
+        randomMessages()
     }
 
 }
@@ -330,3 +345,21 @@ let invisibleChange = () => {
 
 }
 
+
+let randomMessages = () => {
+
+    firstMessage.classList.add("hidden")
+    secondMessage.classList.add("hidden")
+    thirdMessage.classList.add("hidden")
+
+    if (messagesAppear) {
+
+        let choices = [firstMessage, secondMessage, thirdMessage]
+
+        let randomNumber = Math.floor(Math.random() * 3)
+
+        choices[randomNumber].classList.remove("hidden")
+
+    }
+    
+}
