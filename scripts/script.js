@@ -23,7 +23,7 @@ const mapDefault = [
 const map = document.getElementById("map")
 const startBtn = document.getElementById("startBtn")
 const restartBtn = document.getElementById("restartBtn")
-const winningMessage = document.getElementById("winningMessage")
+const resultMessage = document.getElementById("resultMessage")
 const moveNumber = document.getElementById("moveNumber")
 const chronometerDisplay = document.getElementById("chronometerDisplay")
 const levelDisplay = document.getElementById("levelDisplay")
@@ -32,6 +32,7 @@ const main = document.querySelector("main")
 const firstMessage = document.getElementById("firstMessage")
 const secondMessage = document.getElementById("secondMessage") 
 const thirdMessage = document.getElementById("thirdMessage")
+const resultMessageText = document.getElementById("resultMessageText")
 
 let heroPosition = []
 
@@ -62,6 +63,9 @@ let invisibleCall
 
 let messagesAppear = false
 let messagesCall
+
+let gameOver = false
+let checkGameOverCall
 
 /* DECLARAÇÃO DE VARIÁVEIS */
 
@@ -98,10 +102,13 @@ startBtn.addEventListener("click", function() {
 
     clearInterval(messagesCall)
     messagesCall = setInterval(randomMessages, 2000)
+
+    clearInterval(checkGameOverCall)
+    checkGameOverCall = setInterval(checkGameOver, 10)
 })
 
 restartBtn.addEventListener("click", function() {
-    winningMessage.classList.add("hidden")
+    resultMessage.classList.add("hidden")
     mapGenerator(mapDefault)
     gameWon = false
     moveCount = 0
@@ -129,6 +136,8 @@ restartBtn.addEventListener("click", function() {
     clearInterval(messagesCall)
     messagesCall = setInterval(randomMessages, 2000)
     
+    clearInterval(checkGameOverCall)
+    checkGameOverCall = setInterval(checkGameOver, 10)
 })
 
 
@@ -237,7 +246,7 @@ let winningEvent = () => {
     if (heroPosition[0] === finishPosition[0] && heroPosition[1] === finishPosition[1]) {
 
         gameWon = true
-        winningMessage.classList.remove("hidden")
+        showResult()
         clearInterval(chronometerCall)
 
         clearInterval(rotationCall)
@@ -367,4 +376,63 @@ let randomMessages = () => {
 
     }
     
+}
+
+
+let gameLost = () => {
+
+    if (gameOver) {
+ 
+        showResult()
+        clearInterval(chronometerCall)
+
+        clearInterval(rotationCall)
+    
+        removeShake()
+        messagesAppear = false
+        randomMessages()
+ 
+        gameOver = false
+    }
+ 
+}
+
+
+let checkGameOver = () => {
+
+    // if (heroPosition[0] === trapList[0][0] & heroPosition[1] === trapList[0][1]) { 
+  
+    //      gameOver = true
+  
+    // }
+  
+    // if (heroPosition[0] === trapList[1][0] & heroPosition[1] === trapList[1][1]) { 
+  
+    //      gameOver = true
+  
+    // }
+  
+    if (chronometerDisplay.innerText === "00:00") {
+    
+        gameOver = true
+    }
+  
+    gameLost()
+  }
+
+
+
+
+let showResult = () => {
+
+    if (gameWon) {
+        resultMessage.classList.remove("hidden")
+        resultMessageText.innerText = "Parabéns, você chegou ao final!"
+    }
+    
+    if (gameOver) {
+        resultMessage.classList.remove("hidden")
+        resultMessageText.innerText = ":(((((("
+    }
+
 }
