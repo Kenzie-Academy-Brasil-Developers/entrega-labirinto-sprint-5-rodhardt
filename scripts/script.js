@@ -43,6 +43,7 @@ let finishPosition = []
 let gameWon = false
 let moveCount = 0
 
+let miliseconds = 0
 let seconds = 0
 let minutes = 0
 let chronometerCall
@@ -75,8 +76,8 @@ startBtn.addEventListener("click", function() {
     moveCounter()
 
     clearInterval(chronometerCall)
-    chronometerDisplay.innerText = `00:00`
-    chronometerCall = setInterval(chronometer, 1000)
+    chronometerDisplay.innerText = `20:00`
+    chronometerCall = setInterval(chronometer, 10)
 
     clearInterval(rotationCall)
     removeRotation()
@@ -105,8 +106,8 @@ restartBtn.addEventListener("click", function() {
     gameWon = false
     moveCount = 0
     moveCounter()
-    chronometerDisplay.innerText = `00:00`
-    chronometerCall = setInterval(chronometer, 1000)
+    chronometerDisplay.innerText = `20:00`
+    chronometerCall = setInterval(chronometer, 10)
 
     clearInterval(rotationCall)
     removeRotation()
@@ -259,32 +260,36 @@ let moveCounter = () => {
 
 let chronometer = () => {
 
-    if (chronometerDisplay.innerText === `00:00`) {
-        seconds = 0
-        minutes = 0
+    if (chronometerDisplay.innerText === `20:00`) {
+        seconds = 20
+        miliseconds = 00
     }
 
-    seconds++
+    miliseconds--
+
+    if (miliseconds < 0) {
+      miliseconds = 99
+      miliseconds = `${miliseconds}`
+    }
+
+    if (miliseconds === "99") {
+      seconds--
+    }
+
+    if (miliseconds < 10) {
+        miliseconds = `0` + Number(miliseconds)
+    }    
+
+    if (seconds < 0) {
+        seconds = 20
+    }
 
     if (seconds < 10) {
         seconds = `0` + Number(seconds)
     }
 
-    if (seconds > 59) {
-        seconds = `00`
-        minutes++
-    }
 
-    if (minutes < 10) {
-        minutes = `0` + Number(minutes)
-    }
-
-
-    if (minutes > 59) {
-        minutes = `00`
-    }
-
-    chronometerDisplay.innerText = `${minutes}:${seconds}`
+    chronometerDisplay.innerText = `${seconds}:${miliseconds}`
 }
 
 

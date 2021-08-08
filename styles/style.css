@@ -134,6 +134,7 @@ main {
 
     .info h3 {
         font-size: 1.6rem;
+        margin-top: 10px;
     }
 
     .info p {
