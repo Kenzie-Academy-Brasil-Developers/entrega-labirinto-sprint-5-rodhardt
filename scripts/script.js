@@ -67,7 +67,7 @@ let messagesCall
 let gameOver = false
 let checkGameOverCall
 
-let trapMode = true
+let trapMode = false
 let trapList = [0, 0]
 let trapCall
 let removeTrapCall
@@ -79,8 +79,15 @@ let removeTrapCall
 /* FUNÇÕES DO JOGO */
 
 
-startBtn.addEventListener("click", function() {
+startBtn.addEventListener("click", game)
+
+restartBtn.addEventListener("click", game)
+
+function game() {
+
+    resultMessage.classList.add("hidden")
     mapGenerator(mapDefault)
+    gameWon = false
     moveCount = 0
     moveCounter()
 
@@ -88,73 +95,42 @@ startBtn.addEventListener("click", function() {
     chronometerDisplay.innerText = `20:00`
     chronometerCall = setInterval(chronometer, 10)
 
-    clearInterval(rotationCall)
     removeRotation()
-    if (currentLevel > 1) {
-        rotateMode = true
-    }
-    rotationCall = setInterval(addRotation, 2200)
+    levelManager()
 
-    if (currentLevel > 2) {
-        shakeMode = true
-        invisibleMode = true
-        messagesAppear = true
-    }
-    addShake()
+    modeExecute()
 
-    clearInterval(invisibleCall)
-    invisibleCall = setInterval(invisibleChange, 2000)
-
-    clearInterval(messagesCall)
-    messagesCall = setInterval(randomMessages, 2000)
 
     clearInterval(checkGameOverCall)
     checkGameOverCall = setInterval(checkGameOver, 10)
+    gameOver = false
+}
 
-    clearInterval(trapCall)
-    clearTimeout(removeTrapCall)
-    trapCall = setInterval(addTrap, 2000)
-})
-
-restartBtn.addEventListener("click", function() {
-    resultMessage.classList.add("hidden")
-    mapGenerator(mapDefault)
-    gameWon = false
-    moveCount = 0
-    moveCounter()
-    chronometerDisplay.innerText = `20:00`
-    chronometerCall = setInterval(chronometer, 10)
-
-    clearInterval(rotationCall)
-    removeRotation()
-    if (currentLevel > 1) {
-        rotateMode = true
-    }
-    rotationCall = setInterval(addRotation, 2200)
-
-    if (currentLevel > 2) {
-        shakeMode = true
-        invisibleMode = true
-        messagesAppear = true
-    }
-    addShake()
-
-    clearInterval(invisibleCall)
-    invisibleCall = setInterval(invisibleChange, 2000)
-
-    clearInterval(messagesCall)
-    messagesCall = setInterval(randomMessages, 2000)
     
-    clearInterval(checkGameOverCall)
-    checkGameOverCall = setInterval(checkGameOver, 10)
+
+
+
+
+const modeExecute = () =>{
 
     clearInterval(trapCall)
     clearTimeout(removeTrapCall)
     trapCall = setInterval(addTrap, 2000)
-})
+
+    clearInterval(messagesCall)
+    messagesCall = setInterval(randomMessages, 2000)
+
+    addShake()
+    
+    clearInterval(invisibleCall)
+    invisibleCall = setInterval(invisibleChange, 2000)
+
+    clearInterval(rotationCall)
+    rotationCall = setInterval(addRotation, 2200)
+}
 
 
-let mapGenerator = (newMap) => {
+const mapGenerator = (newMap) => {
 
     map.innerText = ""
 
@@ -214,12 +190,16 @@ document.addEventListener('keydown', (event) => {
     if (keyName === "ArrowLeft" & checkViability(mapDefault, positionY, positionX - 1)) {
         changeSquare(positionY, positionX - 1)
     }
-    winningEvent()
+
+    if (gameWon === false) {
+        winningEvent()
+    }
+    
 })
 
 
 
-let checkViability = (newMap, newPositionY, newPositionX) => {
+const checkViability = (newMap, newPositionY, newPositionX) => {
 
     let viability = true
 
@@ -235,7 +215,11 @@ let checkViability = (newMap, newPositionY, newPositionX) => {
         viability = false
     }
 
-    if (gameWon === true) {
+    if (gameWon) {
+        viability = false
+    }
+
+    if (gameOver) {
         viability = false
     }
 
@@ -243,7 +227,7 @@ let checkViability = (newMap, newPositionY, newPositionX) => {
 }
 
 
-let changeSquare = (newPositionY, newPositionX) => {
+const changeSquare = (newPositionY, newPositionX) => {
 
     let destinySquare = document.querySelector(`.row:nth-child(${newPositionY + 1}) .square:nth-child(${newPositionX + 1})`)
     destinySquare.append(hero)
@@ -254,7 +238,7 @@ let changeSquare = (newPositionY, newPositionX) => {
 
 
 
-let winningEvent = () => {
+const winningEvent = () => {
 
     if (heroPosition[0] === finishPosition[0] && heroPosition[1] === finishPosition[1]) {
 
@@ -273,14 +257,14 @@ let winningEvent = () => {
 }
 
 
-let moveCounter = () => {
+const moveCounter = () => {
 
     moveNumber.innerText = moveCount
 
 }
 
 
-let chronometer = () => {
+const chronometer = () => {
 
     if (chronometerDisplay.innerText === `20:00`) {
         seconds = 20
@@ -315,7 +299,7 @@ let chronometer = () => {
 }
 
 
-let addRotation = () => {
+const addRotation = () => {
 
     if (rotateMode) {
         map.classList.add("rotate")
@@ -329,7 +313,7 @@ let addRotation = () => {
 
 }
 
-let removeRotation = () => {
+const removeRotation = () => {
 
     degrees = 0
 
@@ -341,7 +325,7 @@ let removeRotation = () => {
     
 }
 
-let nextLevel = () => {
+const nextLevel = () => {
 
     currentLevel++
     levelDisplay.innerText = currentLevel
@@ -349,7 +333,7 @@ let nextLevel = () => {
 }
 
 
-let addShake = () => {
+const addShake = () => {
 
     if (shakeMode) {
         mainGame.classList.add("shake")
@@ -358,13 +342,13 @@ let addShake = () => {
 
 }
 
-let removeShake = () => {
+const removeShake = () => {
 
     mainGame.classList.remove("shake")
 
 }
 
-let invisibleChange = () => {
+const invisibleChange = () => {
 
     if (invisibleMode) {
         hero.classList.toggle("hidden")
@@ -373,7 +357,7 @@ let invisibleChange = () => {
 }
 
 
-let randomMessages = () => {
+const randomMessages = () => {
 
     firstMessage.classList.add("hidden")
     secondMessage.classList.add("hidden")
@@ -392,10 +376,10 @@ let randomMessages = () => {
 }
 
 
-let gameLost = () => {
+const gameLost = () => {
 
     if (gameOver) {
- 
+        
         showResult()
         clearInterval(chronometerCall)
 
@@ -405,13 +389,14 @@ let gameLost = () => {
         messagesAppear = false
         randomMessages()
  
-        gameOver = false
+        clearInterval(checkGameOverCall)
+        
     }
  
 }
 
 
-let checkGameOver = () => {
+const checkGameOver = () => {
 
     if (heroPosition[0] === trapList[0][0] & heroPosition[1] === trapList[0][1]) { 
   
@@ -436,7 +421,7 @@ let checkGameOver = () => {
 
 
 
-let showResult = () => {
+const showResult = () => {
 
     if (gameWon) {
         resultMessage.classList.remove("hidden")
@@ -451,14 +436,14 @@ let showResult = () => {
 }
 
 
-let randomNumberGen = (range) => {
+const randomNumberGen = (range) => {
 
     let randomNumber = Math.floor(Math.random() * range)
   
     return randomNumber
 }
 
-let addTrap = () => {
+const addTrap = () => {
 
     if (trapMode) {
 
@@ -492,7 +477,7 @@ let addTrap = () => {
     }
 }
 
-let removeTrap = () => {
+const removeTrap = () => {
     let trapRemover = document.querySelector(".trap")
     trapRemover.classList.remove("trap")
     trapRemover = document.querySelector(".trap")
@@ -501,3 +486,58 @@ let removeTrap = () => {
 }
 
 
+const levelManager = () => {
+
+    if (currentLevel === 2) {
+        trapMode = true
+        messagesAppear = true
+        shakeMode = false
+        invisibleMode = false
+        rotateMode = false
+        
+    }
+
+    if (currentLevel === 3) {
+        trapMode = true
+        messagesAppear = true
+        shakeMode = true
+        invisibleMode = false
+        rotateMode = false     
+    }
+
+    if (currentLevel === 4) {
+        trapMode = true
+        messagesAppear = true
+        shakeMode = true
+        invisibleMode = true
+        rotateMode = false
+    }
+
+    if (currentLevel === 5) {
+        trapMode = true
+        messagesAppear = true
+        shakeMode = true
+        invisibleMode = true
+        rotateMode = true
+    }
+
+    if (currentLevel === 6) {
+        
+    }
+
+    if (currentLevel === 7) {
+        
+    }
+
+    if (currentLevel === 8) {
+        
+    }
+
+    if (currentLevel === 9) {
+        
+    }
+
+    if (currentLevel === 10) {
+        
+    }
+}
