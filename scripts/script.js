@@ -176,18 +176,22 @@ document.addEventListener('keydown', (event) => {
     let positionX = heroPosition[1]
 
     if (keyName === "ArrowUp" & checkViability(mapDefault, positionY - 1, positionX)) {
+        walkingAnimation("up")
         changeSquare(positionY -1, positionX)
     }
 
     if (keyName === "ArrowDown" & checkViability(mapDefault, positionY + 1, positionX)) {
+        walkingAnimation("down")
         changeSquare(positionY +1, positionX)
     }
 
     if (keyName === "ArrowRight" & checkViability(mapDefault, positionY, positionX + 1)) {
+        walkingAnimation("right")
         changeSquare(positionY, positionX + 1)
     }
 
     if (keyName === "ArrowLeft" & checkViability(mapDefault, positionY, positionX - 1)) {
+        walkingAnimation("left")
         changeSquare(positionY, positionX - 1)
     }
 
@@ -229,11 +233,15 @@ const checkViability = (newMap, newPositionY, newPositionX) => {
 
 const changeSquare = (newPositionY, newPositionX) => {
 
-    let destinySquare = document.querySelector(`.row:nth-child(${newPositionY + 1}) .square:nth-child(${newPositionX + 1})`)
-    destinySquare.append(hero)
     heroPosition = [newPositionY, newPositionX]
     moveCount++
     moveCounter()
+    setTimeout(function(){
+        let destinySquare = document.querySelector(`.row:nth-child(${newPositionY + 1}) .square:nth-child(${newPositionX + 1})`)
+        destinySquare.append(hero)
+        undoWalking()
+    }, 100)
+    
 }
 
 
@@ -540,4 +548,28 @@ const levelManager = () => {
     if (currentLevel === 10) {
         
     }
+}
+
+
+const walkingAnimation = (direction) => {
+
+    if (direction === "up") {
+        hero.style.transform = "translateY(-3px) rotateX(30deg)"
+    }
+
+    if (direction === "down") {
+        hero.style.transform = "translateY(3px) rotateX(30deg)"
+    }
+
+    if (direction === "right") {
+        hero.style.transform = "translateX(3px) rotateY(30deg)"
+    }
+
+    if (direction === "left") {
+        hero.style.transform = "translateX(-3px) rotateY(30deg)"
+    }
+}
+
+const undoWalking = () => {
+    hero.style.transform = "translate(0px)"
 }
