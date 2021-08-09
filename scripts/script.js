@@ -67,6 +67,11 @@ let messagesCall
 let gameOver = false
 let checkGameOverCall
 
+let trapMode = true
+let trapList = [0, 0]
+let trapCall
+let removeTrapCall
+
 /* DECLARAÇÃO DE VARIÁVEIS */
 
 
@@ -105,6 +110,10 @@ startBtn.addEventListener("click", function() {
 
     clearInterval(checkGameOverCall)
     checkGameOverCall = setInterval(checkGameOver, 10)
+
+    clearInterval(trapCall)
+    clearTimeout(removeTrapCall)
+    trapCall = setInterval(addTrap, 2000)
 })
 
 restartBtn.addEventListener("click", function() {
@@ -138,6 +147,10 @@ restartBtn.addEventListener("click", function() {
     
     clearInterval(checkGameOverCall)
     checkGameOverCall = setInterval(checkGameOver, 10)
+
+    clearInterval(trapCall)
+    clearTimeout(removeTrapCall)
+    trapCall = setInterval(addTrap, 2000)
 })
 
 
@@ -400,17 +413,17 @@ let gameLost = () => {
 
 let checkGameOver = () => {
 
-    // if (heroPosition[0] === trapList[0][0] & heroPosition[1] === trapList[0][1]) { 
+    if (heroPosition[0] === trapList[0][0] & heroPosition[1] === trapList[0][1]) { 
   
-    //      gameOver = true
+         gameOver = true
   
-    // }
+    }
   
-    // if (heroPosition[0] === trapList[1][0] & heroPosition[1] === trapList[1][1]) { 
+    if (heroPosition[0] === trapList[1][0] & heroPosition[1] === trapList[1][1]) { 
   
-    //      gameOver = true
+         gameOver = true
   
-    // }
+    }
   
     if (chronometerDisplay.innerText === "00:00") {
     
@@ -436,3 +449,55 @@ let showResult = () => {
     }
 
 }
+
+
+let randomNumberGen = (range) => {
+
+    let randomNumber = Math.floor(Math.random() * range)
+  
+    return randomNumber
+}
+
+let addTrap = () => {
+
+    if (trapMode) {
+
+        let goalTrap = [[5,1], [3,9], [9,11], [7,13]]
+        let fakeTrap = [[11,3], [9,9], [5,13]]
+
+        let trapIndex = randomNumberGen(goalTrap.length - 1)
+        let trapY = goalTrap[trapIndex][0]
+        let trapX = goalTrap[trapIndex][1]
+
+        trapList = []
+
+        trapPosition = [trapY, trapX]
+        trapList.push(trapPosition)
+
+        trapElement = document.querySelector(`.row:nth-child(${trapY + 1}) .square:nth-child(${trapX + 1})`)
+        trapElement.classList.add("trap")
+
+        trapIndex = randomNumberGen(fakeTrap.length - 1)
+        trapY = fakeTrap[trapIndex][0]
+        trapX = fakeTrap[trapIndex][1]
+
+        trapPosition = [trapY, trapX]
+        trapList.push(trapPosition)
+
+        trapElement = document.querySelector(`.row:nth-child(${trapY + 1}) .square:nth-child(${trapX + 1})`)
+        trapElement.classList.add("trap")
+
+        removeTrapCall = setTimeout(removeTrap, 1000)
+
+    }
+}
+
+let removeTrap = () => {
+    let trapRemover = document.querySelector(".trap")
+    trapRemover.classList.remove("trap")
+    trapRemover = document.querySelector(".trap")
+    trapRemover.classList.remove("trap")
+    trapList = [[0, 0], [0, 0]]
+}
+
+

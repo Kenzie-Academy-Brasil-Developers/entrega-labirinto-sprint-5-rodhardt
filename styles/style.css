@@ -121,6 +121,11 @@ main {
         background-size: contain;
     }
 
+    .main-game .trap {
+        background-image: none;
+        background-color: red;
+    }
+
 
 .info {
     width: 80vw;
