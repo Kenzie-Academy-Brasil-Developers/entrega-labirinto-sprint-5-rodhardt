@@ -122,7 +122,8 @@ main {
     }
 
     .main-game .trap {
-        background-image: none;
+        background-image: url(https://pixelartmaker-data-78746291193.nyc3.digitaloceanspaces.com/image/da234f98a2c9c22.png);
+        background-size: cover;
         background-color: red;
     }
 
